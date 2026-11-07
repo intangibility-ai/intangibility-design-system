@@ -1,6 +1,6 @@
 {
   "name": "@boopdoopgoop/design-system",
-  "version": "0.2.2",
+  "version": "0.2.1",
   "description": "Intangibility tokens, typography, React components, and Tailwind CSS v4 theme",
   "type": "module",
   "packageManager": "pnpm@10.15.1",
