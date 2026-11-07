@@ -10,11 +10,11 @@ test('component exports work in plain ESM/CJS without bundling React Aria or CSS
   for (const [format, statement] of [
     [
       'module',
-      "import * as components from '@intangibility/design-system/components';",
+      "import * as components from '@boopdoopgoop/design-system/components';",
     ],
     [
       'commonjs',
-      "const components = require('@intangibility/design-system/components');",
+      "const components = require('@boopdoopgoop/design-system/components');",
     ],
   ]) {
     const output = execFileSync(
@@ -33,12 +33,12 @@ test('component exports work in plain ESM/CJS without bundling React Aria or CSS
 test('component CSS is exported, token-only, and compiles alongside Tailwind', async () => {
   const require = createRequire(import.meta.url);
   const css = await readFile(
-    require.resolve('@intangibility/design-system/components.css'),
+    require.resolve('@boopdoopgoop/design-system/components.css'),
     'utf8',
   );
   assert.doesNotMatch(css, /#[\da-f]{3,8}\b|\bui-|ui\.css|@import/i);
   const theme = await readFile(
-    require.resolve('@intangibility/design-system/theme.css'),
+    require.resolve('@boopdoopgoop/design-system/theme.css'),
     'utf8',
   );
   for (const [, name] of css.matchAll(/var\(--(ds-[a-z0-9-]+)\)/g)) {

@@ -11,9 +11,9 @@ In a consumer's CSS (Tailwind v4 must process the theme):
 
 ```css
 @import 'tailwindcss';
-@import '@intangibility/design-system/fonts.css'; /* optional */
-@import '@intangibility/design-system/theme.css';
-@import '@intangibility/design-system/components.css'; /* optional */
+@import '@boopdoopgoop/design-system/fonts.css'; /* optional */
+@import '@boopdoopgoop/design-system/theme.css';
+@import '@boopdoopgoop/design-system/components.css'; /* optional */
 ```
 
 ```html
@@ -59,14 +59,14 @@ import {
   tokens,
   resolvedTokens,
   tokenDocuments,
-} from '@intangibility/design-system';
+} from '@boopdoopgoop/design-system';
 
 resolvedTokens['color.riso.paper']?.cssValue; // '#f2ede2'
 tokens['color.riso.paper']?.$value; // '{primitive.color.paper}'
 tokenDocuments.semantic; // original DTCG document
 ```
 
-CommonJS `require('@intangibility/design-system')` exposes the same API. Both
+CommonJS `require('@boopdoopgoop/design-system')` exposes the same API. Both
 formats have declarations. Raw JSON exports are `tokens/primitives.json` and
 `tokens/semantic.json`. `flattenTokens`, `resolveTokens`, and `renderTheme` are
 also exported. Their supported DTCG subset is color (sRGB), dimension (px/rem),
@@ -126,7 +126,7 @@ import {
   Field,
   Input,
   Modal,
-} from '@intangibility/design-system/components';
+} from '@boopdoopgoop/design-system/components';
 
 <Field label="Email" hint="Use your work email." error={emailError}>
   <Input type="email" name="email" />

@@ -7,9 +7,9 @@ import { fileURLToPath } from 'node:url';
 import ts from 'typescript';
 
 test('package exports import as ESM and require as CJS', async () => {
-  const packageName = '@intangibility/design-system';
+  const packageName = '@boopdoopgoop/design-system';
   const esm = await import(packageName);
-  const cjs = createRequire(import.meta.url)('@intangibility/design-system');
+  const cjs = createRequire(import.meta.url)('@boopdoopgoop/design-system');
   assert.equal(esm.resolvedTokens['color.riso.paper'].cssValue, '#f2ede2');
   assert.deepEqual(esm.resolvedTokens, cjs.resolvedTokens);
   assert.equal(esm.renderTheme(esm.tokens), cjs.renderTheme(cjs.tokens));
@@ -19,13 +19,10 @@ test('package exports import as ESM and require as CJS', async () => {
 
 test('built exports work in plain Node without a TypeScript loader', () => {
   for (const [format, statement] of [
-    [
-      'module',
-      "import { resolvedTokens } from '@intangibility/design-system';",
-    ],
+    ['module', "import { resolvedTokens } from '@boopdoopgoop/design-system';"],
     [
       'commonjs',
-      "const { resolvedTokens } = require('@intangibility/design-system');",
+      "const { resolvedTokens } = require('@boopdoopgoop/design-system');",
     ],
   ]) {
     const result = execFileSync(
@@ -46,10 +43,10 @@ test('ESM and CJS declarations typecheck through package exports', () => {
     [
       fileURLToPath(new URL('./declaration-consumer.mts', import.meta.url)),
       `
-      import { resolvedTokens, tokens, renderTheme, type ResolvedToken } from '@intangibility/design-system';
+      import { resolvedTokens, tokens, renderTheme, type ResolvedToken } from '@boopdoopgoop/design-system';
       const token: ResolvedToken | undefined = resolvedTokens['color.app.canvas'];
       const css: string = renderTheme(tokens);
-      import { Button, Modal, type ButtonProps, type ModalProps } from '@intangibility/design-system/components';
+      import { Button, Modal, type ButtonProps, type ModalProps } from '@boopdoopgoop/design-system/components';
       const buttonProps: ButtonProps = { variant: 'danger', type: 'submit' };
       const modalProps: ModalProps = { open: true, title: 'Edit', onClose() {}, children: null };
       void Button; void Modal; void buttonProps; void modalProps;
@@ -59,10 +56,10 @@ test('ESM and CJS declarations typecheck through package exports', () => {
     [
       fileURLToPath(new URL('./declaration-consumer.cts', import.meta.url)),
       `
-      import system = require('@intangibility/design-system');
+      import system = require('@boopdoopgoop/design-system');
       const token: system.ResolvedToken | undefined = system.resolvedTokens['color.riso.paper'];
       const css: string = system.renderTheme(system.tokens);
-      import components = require('@intangibility/design-system/components');
+      import components = require('@boopdoopgoop/design-system/components');
       const buttonProps: components.ButtonProps = { variant: 'secondary' };
       const fieldProps: components.FieldProps = { label: 'Name', children: null };
       void buttonProps; void fieldProps;
@@ -116,6 +113,6 @@ test('font imports resolve from Fontsource dependencies, never local binaries', 
     assert.ok(specifier?.startsWith('@fontsource/'));
     await access(require.resolve(specifier!));
   }
-  assert.ok(require.resolve('@intangibility/design-system/theme.css'));
-  assert.ok(require.resolve('@intangibility/design-system/fonts.css'));
+  assert.ok(require.resolve('@boopdoopgoop/design-system/theme.css'));
+  assert.ok(require.resolve('@boopdoopgoop/design-system/fonts.css'));
 });
