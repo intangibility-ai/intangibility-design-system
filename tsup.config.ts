@@ -1,7 +1,11 @@
 import { defineConfig } from 'tsup';
 
 export default defineConfig({
-  entry: ['src/index.ts', 'src/components/index.ts'],
+  entry: {
+    index: 'src/index.ts',
+    'components/index': 'src/components/index.ts',
+    'components/modal': 'src/components/Modal.tsx',
+  },
   external: [
     'react',
     'react-dom',

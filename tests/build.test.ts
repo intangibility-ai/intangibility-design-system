@@ -46,7 +46,8 @@ test('ESM and CJS declarations typecheck through package exports', () => {
       import { resolvedTokens, tokens, renderTheme, type ResolvedToken } from '@boopdoopgoop/design-system';
       const token: ResolvedToken | undefined = resolvedTokens['color.app.canvas'];
       const css: string = renderTheme(tokens);
-      import { Button, Modal, type ButtonProps, type ModalProps } from '@boopdoopgoop/design-system/components';
+      import { Button, type ButtonProps } from '@boopdoopgoop/design-system/components';
+      import { Modal, type ModalProps } from '@boopdoopgoop/design-system/components/modal';
       const buttonProps: ButtonProps = { variant: 'danger', type: 'submit' };
       const modalProps: ModalProps = { open: true, title: 'Edit', onClose() {}, children: null };
       void Button; void Modal; void buttonProps; void modalProps;
@@ -60,9 +61,11 @@ test('ESM and CJS declarations typecheck through package exports', () => {
       const token: system.ResolvedToken | undefined = system.resolvedTokens['color.riso.paper'];
       const css: string = system.renderTheme(system.tokens);
       import components = require('@boopdoopgoop/design-system/components');
+      import modal = require('@boopdoopgoop/design-system/components/modal');
       const buttonProps: components.ButtonProps = { variant: 'secondary' };
       const fieldProps: components.FieldProps = { label: 'Name', children: null };
-      void buttonProps; void fieldProps;
+      const modalProps: modal.ModalProps = { open: true, title: 'Edit', onClose() {}, children: null };
+      void buttonProps; void fieldProps; void modalProps; void modal.Modal;
       void token; void css;
     `,
     ],

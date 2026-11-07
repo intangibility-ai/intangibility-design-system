@@ -6,7 +6,8 @@ The second release adds React 19 components through `./components` and opt-in
 `./components.css` to the DTCG tokens, typography, and Tailwind v4 theme.
 Keep the foundation-only root independent of React. Do not add other framework
 components without a new brief. React Aria is an external peer; never implement
-Modal focus containment or Escape handling locally.
+Modal focus containment or Escape handling locally. Export Modal only through
+`./components/modal`; the `./components` build must not import React Aria.
 Do not publish packages, push commits, or edit consumer repositories implicitly.
 
 ## Authority and naming
@@ -27,7 +28,8 @@ Do not publish packages, push commits, or edit consumer repositories implicitly.
 
 ## Implementation
 
-- Pin Node 22.23.2 and pnpm 10.15.1. Use `mise exec -- pnpm …` if shell tools differ.
+- Pin development Node 22.23.2 and pnpm 10.15.1; consumer Node engines are
+  `>=22.22.2` with no upper bound. Use `mise exec -- pnpm …` if shell tools differ.
 - Edit JSON, then run `pnpm generate`; never edit `styles/theme.css` by hand.
 - The generator is deterministic and preserves CSS aliases. Builds check
   freshness rather than regenerating, so stale CSS cannot be silently repaired.

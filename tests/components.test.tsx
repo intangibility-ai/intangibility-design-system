@@ -18,9 +18,9 @@ import {
   Tag,
   Panel,
   Field,
-  Modal,
   cn,
 } from '../src/components';
+import { Modal } from '../src/components/Modal';
 
 afterEach(cleanup);
 

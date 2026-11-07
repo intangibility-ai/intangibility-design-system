@@ -6,7 +6,7 @@ import { test } from 'vitest';
 import { compile } from '@tailwindcss/node';
 import { tokens } from '../src/index';
 
-test('component exports work in plain ESM/CJS without bundling React Aria or CSS', () => {
+test('component exports work in plain ESM/CJS and exclude Modal', () => {
   for (const [format, statement] of [
     [
       'module',
@@ -22,7 +22,7 @@ test('component exports work in plain ESM/CJS without bundling React Aria or CSS
       [
         `--input-type=${format}`,
         '--eval',
-        `${statement} console.log(['Button','ButtonLink','Input','Textarea','Tag','Panel','Field','Modal','cn'].every(key => typeof components[key] === 'function'));`,
+        `${statement} console.log(!('Modal' in components) && ['Button','ButtonLink','Input','Textarea','Tag','Panel','Field','cn'].every(key => typeof components[key] === 'function'));`,
       ],
       { encoding: 'utf8' },
     );
@@ -62,13 +62,53 @@ test('component CSS is exported, token-only, and compiles alongside Tailwind', a
   assert.equal(tokens['space.sm']?.$value, '{primitive.space.8}');
 });
 
-test('built components retain external peer imports and separate declarations', async () => {
+test('built components entries never reference the optional React Aria peer', async () => {
+  for (const extension of ['js', 'cjs']) {
+    const entry = await readFile(
+      new URL(`../dist/components/index.${extension}`, import.meta.url),
+      'utf8',
+    );
+    assert.doesNotMatch(entry, /react-aria-components/);
+    assert.doesNotMatch(entry, /styles\/|\.css["']/);
+  }
+  for (const extension of ['ts', 'cts']) {
+    const declaration = await readFile(
+      new URL(`../dist/components/index.d.${extension}`, import.meta.url),
+      'utf8',
+    );
+    assert.doesNotMatch(declaration, /ModalProps|react-aria-components/);
+    assert.match(declaration, /ButtonLinkProps/);
+  }
+});
+
+test('Modal subpath works in plain ESM/CJS and retains its external peer', async () => {
+  for (const [format, statement] of [
+    [
+      'module',
+      "import { Modal } from '@boopdoopgoop/design-system/components/modal';",
+    ],
+    [
+      'commonjs',
+      "const { Modal } = require('@boopdoopgoop/design-system/components/modal');",
+    ],
+  ]) {
+    const output = execFileSync(
+      process.execPath,
+      [
+        `--input-type=${format}`,
+        '--eval',
+        `${statement} console.log(typeof Modal);`,
+      ],
+      { encoding: 'utf8' },
+    );
+    assert.equal(output.trim(), 'function');
+  }
   const esm = await readFile(
-    new URL('../dist/components/index.js', import.meta.url),
+    new URL('../dist/components/modal.js', import.meta.url),
     'utf8',
   );
   const cjs = await readFile(
-    new URL('../dist/components/index.cjs', import.meta.url),
+    new URL('../dist/components/modal.cjs', import.meta.url),
     'utf8',
   );
   assert.match(esm, /from ["']react-aria-components["']/);
@@ -76,10 +116,16 @@ test('built components retain external peer imports and separate declarations', 
   assert.doesNotMatch(esm, /styles\/|\.css["']/);
   for (const extension of ['ts', 'cts']) {
     const declaration = await readFile(
-      new URL(`../dist/components/index.d.${extension}`, import.meta.url),
+      new URL(`../dist/components/modal.d.${extension}`, import.meta.url),
       'utf8',
     );
     assert.match(declaration, /ModalProps/);
-    assert.match(declaration, /ButtonLinkProps/);
   }
+});
+
+test('consumer Node engine has the supported floor and no upper bound', async () => {
+  const manifest = JSON.parse(
+    await readFile(new URL('../package.json', import.meta.url), 'utf8'),
+  );
+  assert.equal(manifest.engines.node, '>=22.22.2');
 });

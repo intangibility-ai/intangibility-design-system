@@ -1,4 +1,4 @@
-# Intangibility design system · 0.2.0
+# Intangibility design system · 0.2.1
 
 DTCG tokens, fixed typography, a Tailwind CSS v4 theme, and opt-in React 19
 components. No global reset, application styles, font binaries, or npm
@@ -114,6 +114,8 @@ in either source repository was migrated or edited.
 
 Install the peers `react@^19` and `react-dom@^19`.
 `react-aria-components@^1.21.1` is an optional peer required only for `Modal`.
+Import Modal from `@boopdoopgoop/design-system/components/modal`; the regular
+`components` entry does not import React Aria and works without that peer.
 React Aria is external in both builds, never bundled.
 JavaScript imports load neither CSS nor fonts. Import `theme.css` before
 `components.css`; recipes live in `@layer components` so Tailwind utilities can
@@ -125,8 +127,8 @@ import {
   ButtonLink,
   Field,
   Input,
-  Modal,
 } from '@boopdoopgoop/design-system/components';
+import { Modal } from '@boopdoopgoop/design-system/components/modal';
 
 <Field label="Email" hint="Use your work email." error={emailError}>
   <Input type="email" name="email" />
@@ -217,8 +219,9 @@ mise exec -- pnpm test
 mise exec -- pnpm build
 ```
 
-Node **22.23.2**, pnpm **10.15.1** are pinned in `mise.toml`, `package.json`, and
-CI. `generate:check`, the build, and the CSS freshness test fail for stale
+Development and CI use Node **22.23.2** and pnpm **10.15.1**, pinned in
+`mise.toml` and `packageManager`. Consumers support Node **>=22.22.2** with no
+upper bound. `generate:check`, the build, and the CSS freshness test fail for stale
 committed CSS; none auto-repairs it. Test builds first, then imports the built
 ESM/CJS package under Vitest, verifies declarations and Fontsource paths,
 validates aliases and both palettes, and compiles real Tailwind v4 utilities.
