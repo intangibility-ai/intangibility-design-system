@@ -306,6 +306,28 @@
       "two": { "$value": { "value": 2, "unit": "px" } },
       "three": { "$value": { "value": 3, "unit": "px" } }
     },
+    "space": {
+      "$type": "dimension",
+      "4": { "$value": { "value": 4, "unit": "px" } },
+      "6": { "$value": { "value": 6, "unit": "px" } },
+      "8": { "$value": { "value": 8, "unit": "px" } },
+      "10": { "$value": { "value": 10, "unit": "px" } },
+      "12": { "$value": { "value": 12, "unit": "px" } },
+      "16": { "$value": { "value": 16, "unit": "px" } },
+      "20": { "$value": { "value": 20, "unit": "px" } },
+      "24": { "$value": { "value": 24, "unit": "px" } },
+      "32": { "$value": { "value": 32, "unit": "px" } }
+    },
+    "component-size": {
+      "$type": "dimension",
+      "control": { "$value": { "value": 44, "unit": "px" } },
+      "textarea": { "$value": { "value": 96, "unit": "px" } },
+      "modal": { "$value": { "value": 480, "unit": "px" } }
+    },
+    "layer": {
+      "$type": "number",
+      "modal": { "$value": 50 }
+    },
     "weight": {
       "$type": "fontWeight",
       "regular": { "$value": 400 },
@@ -320,7 +342,13 @@
       "body": { "$value": 1.45 },
       "copy": { "$value": 1.4 },
       "label": { "$value": 1.25 },
-      "grain": { "$value": 0.1 }
+      "grain": { "$value": 0.1 },
+      "hover": { "$value": 0.05 },
+      "overlay": { "$value": 0.4 },
+      "disabled": { "$value": 0.55 },
+      "tracking-control": { "$value": 0.08 },
+      "tracking-label": { "$value": 0.12 },
+      "tracking-panel": { "$value": 0.14 }
     }
   }
 }

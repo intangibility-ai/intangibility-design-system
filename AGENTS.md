@@ -2,8 +2,11 @@
 
 ## Scope
 
-The first release is foundations only: DTCG tokens, typography, and Tailwind v4
-theme CSS. Do not add React or other framework components without a new brief.
+The second release adds React 19 components through `./components` and opt-in
+`./components.css` to the DTCG tokens, typography, and Tailwind v4 theme.
+Keep the foundation-only root independent of React. Do not add other framework
+components without a new brief. React Aria is an external peer; never implement
+Modal focus containment or Escape handling locally.
 Do not publish packages, push commits, or edit consumer repositories implicitly.
 
 ## Authority and naming
@@ -42,7 +45,8 @@ Do not publish packages, push commits, or edit consumer repositories implicitly.
 Run `pnpm format`, `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build`.
 `pnpm test` builds before testing package self-imports as ESM and CJS, verifies
 declaration artifacts and Fontsource paths, rejects invalid tokens, checks the
-committed CSS, and compiles representative Tailwind utilities.
+committed CSS, and compiles representative Tailwind utilities. Vitest runs the
+foundation tests in Node and components in jsdom with Testing Library.
 
 Before a commit, review `git diff --check` and the staged diff. Never revert or
 overwrite work you did not make. Commit only when explicitly authorized.

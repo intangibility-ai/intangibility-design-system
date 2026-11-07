@@ -1,7 +1,7 @@
 {
   "name": "@intangibility/design-system",
-  "version": "0.1.0",
-  "description": "Intangibility tokens, typography, and Tailwind CSS v4 theme",
+  "version": "0.2.0",
+  "description": "Intangibility tokens, typography, React components, and Tailwind CSS v4 theme",
   "type": "module",
   "packageManager": "pnpm@10.15.1",
   "engines": {
@@ -22,6 +22,17 @@
         "default": "./dist/index.cjs"
       }
     },
+    "./components": {
+      "import": {
+        "types": "./dist/components/index.d.ts",
+        "default": "./dist/components/index.js"
+      },
+      "require": {
+        "types": "./dist/components/index.d.cts",
+        "default": "./dist/components/index.cjs"
+      }
+    },
+    "./components.css": "./styles/components.css",
     "./theme.css": "./styles/theme.css",
     "./fonts.css": "./styles/fonts.css",
     "./tokens/primitives.json": "./src/tokens/primitives.json",
@@ -43,25 +54,43 @@
     "format:write": "prettier --write .",
     "lint": "eslint . --max-warnings 0",
     "typecheck": "tsc --noEmit",
-    "test": "pnpm build && tsx --test tests/*.test.ts",
+    "test": "pnpm build && vitest run",
     "build": "pnpm generate:check && tsup",
     "prepack": "pnpm typecheck && pnpm test"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-aria-components": "^1.22.1"
   },
   "dependencies": {
     "@fontsource/archivo": "^5.3.0",
     "@fontsource/big-shoulders-display": "^5.3.0",
-    "@fontsource/spline-sans-mono": "^5.3.0"
+    "@fontsource/spline-sans-mono": "^5.3.0",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.7.0"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
     "@tailwindcss/node": "^4.3.5",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.8",
     "@types/node": "^22.20.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "esbuild": "^0.28.2",
     "eslint": "10.14.0",
+    "jsdom": "^31.0.0",
     "prettier": "3.9.10",
+    "react": "^19.3.1",
+    "react-aria-components": "^1.22.1",
+    "react-dom": "^19.3.1",
     "tailwindcss": "^4.3.5",
     "tsup": "8.5.0",
     "tsx": "4.23.15",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.72.1"
+    "typescript-eslint": "8.72.1",
+    "vitest": "^5.1.0"
   }
 }

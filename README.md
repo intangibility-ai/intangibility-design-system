@@ -1,8 +1,9 @@
-# Intangibility design system · 0.1.0
+# Intangibility design system · 0.2.0
 
-Foundations only: DTCG tokens, fixed typography, and a Tailwind CSS v4 theme.
-No React components, global reset, application styles, font binaries, or npm
-publication are included.
+DTCG tokens, fixed typography, a Tailwind CSS v4 theme, and opt-in React 19
+components. No global reset, application styles, font binaries, or npm
+publication are included. The foundation-only root export remains independent
+of React; components are available from a separate subpath.
 
 ## Use
 
@@ -12,6 +13,7 @@ In a consumer's CSS (Tailwind v4 must process the theme):
 @import 'tailwindcss';
 @import '@intangibility/design-system/fonts.css'; /* optional */
 @import '@intangibility/design-system/theme.css';
+@import '@intangibility/design-system/components.css'; /* optional */
 ```
 
 ```html
@@ -86,8 +88,8 @@ These are independent utilities, not automatic type styles. Display/heading,
 body, and mono/label sizes come from `R:175–202,544–552`; UI copy is `U:105–107`
 at a 16px root. The label leading is a release convention, not a source-wide
 label declaration. Input-specific leading `U:198` is not the UI-copy token.
-Fluid hero sizes, uppercasing, tracking, timer sizes, and per-screen layout stay
-with consumers. Fontsource loading is explicit: Big Shoulders 900; Archivo
+Fluid hero sizes, timer sizes, and per-screen layout stay with consumers.
+Component label tracking is now tokenized. Fontsource loading is explicit: Big Shoulders 900; Archivo
 400/500/600/700; Spline Sans Mono 400/500. Other weights/italics require separate
 Fontsource imports. Static family names are used, not unavailable `Variable`
 faces. No Newsreader, Space Mono, or alternative display family ships.
@@ -104,9 +106,101 @@ palette or dark/light modes. JSON literals live in primitives; semantic values
 are aliases, including shared white and ink references. CSS preserves aliases.
 Sharp control radius, app/riso border and focus widths, and riso grain opacity
 are included. Product-specific grading/chart/syntax palettes, toast materials,
-textures, shadows, animation recipes, and layout values are not exported in
-this foundations release; their conflicts are still documented below. Nothing
+textures, shadows, animation recipes, and per-screen layout values are not exported;
+their conflicts are still documented below. Nothing
 in either source repository was migrated or edited.
+
+### Components
+
+Install the peers `react@^19`, `react-dom@^19`, and
+`react-aria-components@^1.22.1`. React Aria is external in both builds, never
+bundled. JavaScript imports load neither CSS nor fonts. Import `theme.css` before
+`components.css`; recipes live in `@layer components` so Tailwind utilities can
+override them. `cn` uses `clsx` and `tailwind-merge`, matching the product.
+
+```tsx
+import {
+  Button,
+  ButtonLink,
+  Field,
+  Input,
+  Modal,
+} from '@intangibility/design-system/components';
+
+<Field label="Email" hint="Use your work email." error={emailError}>
+  <Input type="email" name="email" />
+</Field>;
+<Button variant="primary" type="submit">
+  Save
+</Button>;
+<ButtonLink variant="secondary" href="/settings">
+  Settings
+</ButtonLink>;
+<Modal
+  open={open}
+  title="Edit profile"
+  busy={saving}
+  onClose={() => setOpen(false)}
+  footer={<Button onClick={save}>Save</Button>}
+>
+  <Input aria-label="Name" />
+</Modal>;
+```
+
+| Component           | Product-compatible props/defaults                                                                                      |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `Button`            | Native button props/ref; `variant`: primary (default), secondary, danger; `type="button"` by default                   |
+| `ButtonLink`        | Native anchor props; same variants; no invented disabled-link behavior                                                 |
+| `Input`, `Textarea` | Native props/ref; no controlled-state or validation implementation                                                     |
+| `Tag`               | `children`, `className`, `tone`: neutral (default), success, warning, danger, info                                     |
+| `Panel`             | `title`, `actions`, `children`, `className`, `headerClassName`, `bodyClassName`; header/actions require a truthy title |
+| `Field`             | `label`, `hint`, `error`, `children`, `className`, `interactiveLabel=true`                                             |
+| `Modal`             | `open`, `title`, `busy=false`, `onClose`, `children`, `footer`, `className` (shell), `bodyClassName`                   |
+
+Field wires a single direct control element to stable generated hint/error IDs,
+preserving its existing ID/descriptions and marking errors `aria-invalid`.
+With `interactiveLabel=false`, its label names that control via
+`aria-labelledby`. Custom controls must forward those attributes to the actual
+input. With fragments or multiple/wrapped children, implicit label behavior is
+retained; callers must wire descriptions themselves. Error text retains
+`role="alert"`.
+
+Modal uses React Aria's `ModalOverlay`, `Modal`, `Dialog`, and title `Heading`.
+React Aria owns focus containment/restoration, portals, and Escape. `busy`
+blocks the close callback and outside dismissal and disables the close button;
+it does not override parent changes to `open`. A truthy footer adds a bounded,
+scrollable body and pinned actions, matching the product. React Aria portals
+into the document body, so local ancestor tier attributes do not cross the
+portal: use a document-level tier for modals. No focus trap is implemented here.
+Router-specific `ButtonRouteLink` and the product's `Banner` are out of scope.
+
+#### Release-two provenance and presentation decisions
+
+Behavior and prop names come from product `apps/web/app/components/ui/`
+`Button.tsx`, `Control.tsx`, `Tag.tsx`, `Panel.tsx`, `Field.tsx`, `Modal.tsx`,
+and `apps/web/app/lib/cn.ts`. No `ui.css`, legacy `ui-*` classes, or copied color
+literals are used. This release changes presentation, not the source recipes:
+
+- Existing tier-aware paper/ink/signal roles drive surfaces/actions; statuses
+  stay explicit app colors, never invented riso status tokens. Recipes choose
+  app border/focus dimensions in both tiers; the thicker riso foundations are
+  not treated as a component recipe.
+- Source 9/10px mono labels become the existing 11px label role. Panel headings
+  use the loaded mono regular weight rather than unshipped mono semibold.
+- Source Field/Modal serif text becomes Archivo body/UI and Big Shoulders
+  headings, respectively, honoring package typography authority.
+- Placeholder text uses the tier's muted role for readable contrast, rather
+  than the lighter riso placeholder tint. Neutral Tag border uses control-line.
+  Warning Tag uses explicit app paper behind app warning ink: that pair meets
+  small-text contrast, whereas warning ink directly on cream riso paper does not.
+- New spacing/size/tracking/layer/opacity primitives and alias-only semantic
+  tokens capture source JSX geometry and disabled/backdrop states (44px control,
+  32px close, 480px modal). The 96px textarea minimum and 5% token-derived hover
+  mix are package conventions, not claims about unread product CSS.
+- No product shadow, animation, or marketing extrusion is imported. Sharp
+  controls, focus-visible outlines, and consumer utility overrides stay explicit.
+- Field's generated description/error wiring is an accessibility addition;
+  the product only supplied an implicit wrapping label and alert text.
 
 ## Develop
 
@@ -125,8 +219,11 @@ mise exec -- pnpm build
 Node **22.23.2**, pnpm **10.15.1** are pinned in `mise.toml`, `package.json`, and
 CI. `generate:check`, the build, and the CSS freshness test fail for stale
 committed CSS; none auto-repairs it. Test builds first, then imports the built
-ESM/CJS package, verifies declarations and Fontsource paths, validates aliases
-and both palettes, and compiles real Tailwind v4 utilities. `dist/` and
+ESM/CJS package under Vitest, verifies declarations and Fontsource paths,
+validates aliases and both palettes, and compiles real Tailwind v4 utilities.
+The original ten assertions-based tests remain in Node; component tests use
+jsdom and Testing Library, including React Aria focus containment and Escape.
+`dist/` and
 `node_modules/` are uncommitted. Future-run conventions are in `AGENTS.md`.
 
 ## Source audit and every disagreement
