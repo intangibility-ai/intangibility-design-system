@@ -61,7 +61,12 @@
   "peerDependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-aria-components": "^1.22.1"
+    "react-aria-components": "^1.21.1"
+  },
+  "peerDependenciesMeta": {
+    "react-aria-components": {
+      "optional": true
+    }
   },
   "dependencies": {
     "@fontsource/archivo": "^5.3.0",

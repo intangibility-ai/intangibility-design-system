@@ -112,9 +112,10 @@ in either source repository was migrated or edited.
 
 ### Components
 
-Install the peers `react@^19`, `react-dom@^19`, and
-`react-aria-components@^1.22.1`. React Aria is external in both builds, never
-bundled. JavaScript imports load neither CSS nor fonts. Import `theme.css` before
+Install the peers `react@^19` and `react-dom@^19`.
+`react-aria-components@^1.21.1` is an optional peer required only for `Modal`.
+React Aria is external in both builds, never bundled.
+JavaScript imports load neither CSS nor fonts. Import `theme.css` before
 `components.css`; recipes live in `@layer components` so Tailwind utilities can
 override them. `cn` uses `clsx` and `tailwind-merge`, matching the product.
 
