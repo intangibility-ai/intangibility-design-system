@@ -1,0 +1,98 @@
+{
+  "$description": "Semantic aliases. App chrome and risograph paper are independent named tiers, not light/dark modes. Font choices are fixed for this release.",
+  "color": {
+    "$type": "color",
+    "app": {
+      "$description": "theme.css lines 6–32. App chrome only.",
+      "canvas": { "$value": "{primitive.color.white}" },
+      "paper": { "$value": "{primitive.color.white}" },
+      "ink": { "$value": "{primitive.color.ink}" },
+      "muted": { "$value": "{primitive.color.muted}" },
+      "mist": { "$value": "{primitive.color.mist}" },
+      "line": { "$value": "{primitive.color.line}" },
+      "control-line": { "$value": "{primitive.color.control-line}" },
+      "placeholder": { "$value": "{primitive.color.placeholder}" },
+      "signal": { "$value": "{primitive.color.signal}" },
+      "on-signal": { "$value": "{primitive.color.white}" },
+      "focus": { "$value": "{primitive.color.ink}" },
+      "warning": { "$value": "{primitive.color.warning}" },
+      "success": { "$value": "{primitive.color.success}" },
+      "danger": { "$value": "{primitive.color.danger}" },
+      "info": { "$value": "{primitive.color.info}" },
+      "tile-sage": { "$value": "{primitive.color.sage}" },
+      "tile-sage-ink": { "$value": "{primitive.color.sage-ink}" },
+      "tile-slate": { "$value": "{primitive.color.slate}" },
+      "tile-slate-ink": { "$value": "{primitive.color.slate-ink}" },
+      "tile-ochre": { "$value": "{primitive.color.ochre}" },
+      "tile-ochre-ink": { "$value": "{primitive.color.ochre-ink}" },
+      "tile-clay": { "$value": "{primitive.color.clay}" },
+      "tile-clay-ink": { "$value": "{primitive.color.clay-ink}" },
+      "tile-mauve": { "$value": "{primitive.color.mauve}" },
+      "tile-mauve-ink": { "$value": "{primitive.color.mauve-ink}" },
+      "tile-stone": { "$value": "{primitive.color.stone}" },
+      "tile-stone-ink": { "$value": "{primitive.color.stone-ink}" }
+    },
+    "riso": {
+      "$description": "risograph.css lines 12–18. A single black drum at three densities and marker yellow.",
+      "paper": { "$value": "{primitive.color.paper}" },
+      "sheet": { "$value": "{primitive.color.sheet}" },
+      "ink": { "$value": "{primitive.color.black}" },
+      "ink-2": { "$value": "{primitive.color.ink-70}" },
+      "tint-35": { "$value": "{primitive.color.ink-35}" },
+      "tint-18": { "$value": "{primitive.color.ink-18}" },
+      "highlight": { "$value": "{primitive.color.yellow}" }
+    }
+  },
+  "font": {
+    "$type": "fontFamily",
+    "display": { "$value": "{primitive.font.display}" },
+    "body": { "$value": "{primitive.font.body}" },
+    "sans": { "$value": "{font.body}" },
+    "ui": { "$value": "{font.body}" },
+    "mono": { "$value": "{primitive.font.mono}" }
+  },
+  "text": {
+    "$type": "dimension",
+    "display": { "$value": "{primitive.size.32}" },
+    "heading": { "$value": "{primitive.size.24}" },
+    "body": { "$value": "{primitive.size.15}" },
+    "ui": { "$value": "{primitive.size.14}" },
+    "mono": { "$value": "{primitive.size.12}" },
+    "label": { "$value": "{primitive.size.11}" }
+  },
+  "leading": {
+    "$type": "number",
+    "display": { "$value": "{primitive.ratio.display}" },
+    "body": { "$value": "{primitive.ratio.body}" },
+    "ui": { "$value": "{primitive.ratio.copy}" },
+    "label": { "$value": "{primitive.ratio.label}" }
+  },
+  "font-weight": {
+    "$type": "fontWeight",
+    "black": { "$value": "{primitive.weight.black}" },
+    "regular": { "$value": "{primitive.weight.regular}" },
+    "medium": { "$value": "{primitive.weight.medium}" },
+    "semibold": { "$value": "{primitive.weight.semibold}" },
+    "bold": { "$value": "{primitive.weight.bold}" }
+  },
+  "radius": {
+    "$type": "dimension",
+    "control": { "$value": "{primitive.dimension.zero}" }
+  },
+  "border": {
+    "$type": "dimension",
+    "app": { "$value": "{primitive.dimension.one}" },
+    "riso": { "$value": "{primitive.dimension.three}" }
+  },
+  "focus": {
+    "$type": "dimension",
+    "app-width": { "$value": "{primitive.dimension.two}" },
+    "app-offset": { "$value": "{primitive.dimension.two}" },
+    "riso-width": { "$value": "{primitive.dimension.three}" },
+    "riso-offset": { "$value": "{primitive.dimension.three}" }
+  },
+  "opacity": {
+    "$type": "number",
+    "riso-grain": { "$value": "{primitive.ratio.grain}" }
+  }
+}

@@ -1,0 +1,8 @@
+/* Explicit, opt-in loading. Fontsource owns and serves the font binaries. */
+@import '@fontsource/big-shoulders-display/900';
+@import '@fontsource/archivo/400';
+@import '@fontsource/archivo/500';
+@import '@fontsource/archivo/600';
+@import '@fontsource/archivo/700';
+@import '@fontsource/spline-sans-mono/400';
+@import '@fontsource/spline-sans-mono/500';
