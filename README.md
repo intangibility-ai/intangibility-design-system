@@ -1,4 +1,4 @@
-# Intangibility design system · 0.2.1
+# Intangibility design system · 0.2.2
 
 DTCG tokens, fixed typography, a Tailwind CSS v4 theme, and opt-in React 19
 components. No global reset, application styles, font binaries, or npm
@@ -61,7 +61,7 @@ import {
   tokenDocuments,
 } from '@boopdoopgoop/design-system';
 
-resolvedTokens['color.riso.paper']?.cssValue; // '#f2ede2'
+resolvedTokens['color.riso.paper']?.cssValue; // '#f1e9d4'
 tokens['color.riso.paper']?.$value; // '{primitive.color.paper}'
 tokenDocuments.semantic; // original DTCG document
 ```
@@ -99,7 +99,7 @@ faces. No Newsreader, Space Mono, or alternative display family ships.
 | Tier            | Canvas / paper | Sheet   | Ink     | Secondary | Rule tint | Highlight |
 | --------------- | -------------- | ------- | ------- | --------- | --------- | --------- |
 | App chrome      | #ffffff        | #ffffff | #1a1a1a | #666666   | #d1d1d1   | —         |
-| Risograph paper | #f2ede2        | #f8f5ee | #000000 | #494744   | #c6c2b9   | #ffe800   |
+| Risograph paper | #f1e9d4        | #f8f5ee | #000000 | #494744   | #c6c2b9   | #ffe800   |
 
 Riso tint-35 is `#9d9a93`. Both palettes remain named tiers, never one blended
 palette or dark/light modes. JSON literals live in primitives; semantic values
@@ -109,6 +109,24 @@ are included. Product-specific grading/chart/syntax palettes, toast materials,
 textures, shadows, animation recipes, and per-screen layout values are not exported;
 their conflicts are still documented below. Nothing
 in either source repository was migrated or edited.
+
+#### Release 0.2.2: approved final paper and grain
+
+The final [Theme Consolidation file](https://www.figma.com/design/EjXHUkYfFetpa8J2CHGQf9)
+uses outer paper **#f1e9d4** and inner sheet **#f8f5ee**, confirmed in the final
+Invite Terms (`404:3`), Landing Hero (`405:3`), and Product (`580:3`) code layers.
+The user approved these as the shared palette, superseding the earlier product
+stock **#f2ede2** recorded in the historical audit below. The sheet already
+matched. Grain opacity changes from **0.1 to 0.62**, matching the final reference.
+The consuming surface uses the same feTurbulence texture with a **220px × 220px**
+tile, origin **0 0**, and **multiply** blending; no texture asset is added to this
+package. App chrome remains white. Gray tints, status colors, and typography do
+not change.
+
+Release `0.2.2` contains this correction. Published `0.2.1` still has the old
+paper and grain values; consumers must not assume editing this repository changes
+an installed package. The product carries documented temporary primitive overrides
+until it can consume `0.2.2` after publication.
 
 ### Components
 

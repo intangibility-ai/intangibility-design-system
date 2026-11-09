@@ -10,7 +10,7 @@ test('package exports import as ESM and require as CJS', async () => {
   const packageName = '@boopdoopgoop/design-system';
   const esm = await import(packageName);
   const cjs = createRequire(import.meta.url)('@boopdoopgoop/design-system');
-  assert.equal(esm.resolvedTokens['color.riso.paper'].cssValue, '#f2ede2');
+  assert.equal(esm.resolvedTokens['color.riso.paper'].cssValue, '#f1e9d4');
   assert.deepEqual(esm.resolvedTokens, cjs.resolvedTokens);
   assert.equal(esm.renderTheme(esm.tokens), cjs.renderTheme(cjs.tokens));
   await access(new URL('../dist/index.d.ts', import.meta.url));

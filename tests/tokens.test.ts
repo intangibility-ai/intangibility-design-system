@@ -21,13 +21,14 @@ test('named tiers keep their product values and fixed typography', () => {
   const expected = {
     'color.app.canvas': '#ffffff',
     'color.app.ink': '#1a1a1a',
-    'color.riso.paper': '#f2ede2',
+    'color.riso.paper': '#f1e9d4',
     'color.riso.sheet': '#f8f5ee',
     'color.riso.ink': '#000000',
     'color.riso.ink-2': '#494744',
     'color.riso.tint-35': '#9d9a93',
     'color.riso.tint-18': '#c6c2b9',
     'color.riso.highlight': '#ffe800',
+    'opacity.riso-grain': '0.62',
     'radius.control': '0px',
     'text.body': '15px',
   };
